@@ -47,9 +47,9 @@ def script_process(TAXINCOME,INFO,IMMIGRATION_RATE,CURRENTTAXINCOME,POPULATION,W
     CHOSEN_SCRIPT = SCRIPTS[SCRIPT_NUMBER]
 
 #     Script variables:
-    NEIGHBOUR1 = ("Canada") # Rich, high income, low pop, high education
-    NEIGHBOUR2 = ("Colombia") # Poor, low income, high pop, low education
-    NEIGHBOUR3 = ("Mexico") # Medium, medium income, medium pop, medium education
+    NEIGHBOUR1 = COUNTRYDATA[15] # Rich, high income, low pop, high education
+    NEIGHBOUR2 = COUNTRYDATA[16] # Poor, low income, high pop, low education
+    NEIGHBOUR3 = COUNTRYDATA[17] # Medium, medium income, medium pop, medium education
 
 #     Start of script definition
     if "One" in CHOSEN_SCRIPT:
@@ -113,8 +113,10 @@ def script_process(TAXINCOME,INFO,IMMIGRATION_RATE,CURRENTTAXINCOME,POPULATION,W
 #Country types and their information
 # Future: RICH, POOR, ZOMBIE, APOCALYPSE, 
 AMERICA = [int(50000), int(5000), float(0.6), int(20000), float(0.05), int(3000), int(500), int(15000), float(0.5),
-            int(1000), int(10000), float(0.035), float(0.6), float(0.5), float(0.05), # This is country data
-            ("DEFAULTNEIGHBOUR1"),("DEFAULTNEIGHBOUR2"),("DEFAULTNEIGHBOUR3")]# these are its three neighbours
+            int(1000), int(10000), float(0.035), float(0.6), float(0.5), float(0.05), # This is country data, ends at
+            #[14] which means theres 15 variables in total up to this point
+            ("Canada"),("Colombia"),("Mexico")]# these are its three neighbours, ends at [17] which means
+            #there are 18 variables in total up to this point
 RICH = []
 POOR = []
 
@@ -160,10 +162,12 @@ while PROGRAMRUNNING == True:
         POPULATION_START_OF_YEAR = POPULATION
         print("Year ", (YEAR))
         YEAR += 1
+        #All these following calculations should be innovated in the future, but for now they are simple
         LITERACY += TOTAL_WELFARE * 0.00001 - LITERACY * 0.01 + 0.005
         PUBLIC_SPENDING = 0.1 * GDP
         HEALTHCAREEFFICIENCY = ((PUBLIC_SPENDING / 1000000) / 2 + 0.4)
         POPULATION += 100
+
         #IMMIGRATION calculation now randomly decides between up by 0.05% or down by the same.
         IMMIGRATION_RATE_CHANGE = random.random()
         if IMMIGRATION_RATE_CHANGE == 0:
